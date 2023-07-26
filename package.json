@@ -1,0 +1,37 @@
+{
+    "name": "Pan",
+    "displayName": "Pan Configuration language",
+    "description": "Configuration Language for Quattor deployment tool",
+    "icon": "pan.png",
+    "version": "0.4.1",
+    "publisher": "seraf1",
+    "engines": {
+        "vscode": "*"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "pan",
+                "extensions": [
+                    ".pan",
+                    ".tpl"
+                ],
+                "aliases": [
+                    "Pan",
+                    "pan"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "pan",
+                "scopeName": "source.pan",
+                "path": "./syntaxes/pan.tmLanguage.json"
+            }
+        ]
+    }
+}
