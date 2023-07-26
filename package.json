@@ -1,9 +1,9 @@
 {
-    "name": "pan",
+    "name": "pan-language",
     "displayName": "Pan Configuration language",
     "description": "Configuration Language for Quattor deployment tool",
     "icon": "pan.png",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "publisher": "quattor",
     "repository": {"url": "https://github.com/quattor/vscode-language-pan"},
     "engines": {

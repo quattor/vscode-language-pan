@@ -1,3 +1,6 @@
+## Version 0.5.1
+* Change extension name to be unique
+
 ## Version 0.5.0
 * Fix annotation blocks
 
