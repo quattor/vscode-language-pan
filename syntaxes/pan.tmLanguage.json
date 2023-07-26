@@ -1,376 +1,376 @@
 {
-	"name": "Pan",
-	"scopeName": "source.pan",
-	"fileTypes": [
-		"pan",
-		"tpl"
-	],
-	"patterns": [
-				{
-					"include": "#comment"
-				},
-				{
-					"include": "#annotation"
-				},
-				{
-					"include": "#builtin-callables"
-				},
-				{
-					"include": "#statement-keyword"
-				},
-				{
-					"include": "#resource"
-				},
-				{
-					"include": "#string"
-				},
-				{
-					"include": "#eof"
-				},
-				{
-					"include": "#assignment-operator"
-				},
-				{
-					"include": "#logical-operator"
-				},
-				{
-					"include": "#bitwise-operator"
-				},
-				{
-					"include": "#arithmetic-operator"
-				},
-				{
-					"include": "#comparison-operator"
-				},
-				{
-					"include": "#literal"
-				},
-				{
-					"include": "#semicolon"
-				}
-	],
-	"repository": {
-		"semicolon": {
-			"patterns": [
-				{
-					"name": "invalid.deprecated.semicolon.pan",
-					"match": "\\;$"
-				}
-			]
-		},
-		"comment": {
-				"begin": "(^[ \\t]+)?(?<!\\S)(?=#)(?!#\\{)",
-				"beginCaptures": {
-						"1": {
-								"name": "punctuation.whitespace.comment.leading.shell"
-						}
-				},
-				"end": "(?!\\G)",
-				"patterns": [
-						{
-								"begin": "^(#!)",
-								"beginCaptures": {
-										"1": {
-												"name": "punctuation.definition.comment.line.shebang.shell"
-										}
-								},
-								"end": "\\n",
-								"name": "comment.line.shebang.shell"
-						},
-						{
-								"begin": "#",
-								"beginCaptures": {
-										"0": {
-												"name": "punctuation.definition.comment.shell"
-										}
-								},
-								"end": "\\n",
-								"name": "comment.line.number-sign.shell"
-						}
-				]
-		},
-		"annotation": {
-			"name": "comment.block.documentation.end.pan",
-			"begin": "^(@)",
-			"beginCaptures": {
-				"0": {
-					"name": "comment.block.documentation.begin.pan"
-				}
-			},
-			"end": "^(})\\n",
-			"endCaptures": {
-				"0": {
-					"name": "comment.block.documentation.end.pan"
-				}
-			}
-		},
-		"assignment-operator": {
-			"name": "keyword.control.assignment.pan",
-			"match": "(?x)\n     ( = | \\?= )\n"
-		},
-		"logical-operator": {
-			"name": "keyword.operator.logical.pan",
-			"match": "(?x)\n     ( && | \\|\\| | ! )\n"
-		},
-		"bitwise-operator": {
-			"name": "keyword.operator.bitwise.pan",
-			"match": "(?x)\n     ( & | \\| | \\^ | ~ )\n"
-		},
-		"arithmetic-operator": {
-			"name": "keyword.operator.arithmetic.pan",
-			"match": "(?x)\n     (\\* | \\+ | - | % | / )\n"
-		},
-		"comparison-operator": {
-			"name": "keyword.operator.comparison.pan",
-			"match": "(?x)\n     (!= | == | >= | <= | < | >)\n"
-		},
-		"literal": {
-			"patterns": [
-				{
-					"name": "constant.numeric.boolean.pan",
-					"match": "\\b(true|false)\\b"
-				},
-				{
-					"name": "support.type.undef.pan",
-					"match": "\\b(undef|null)\\b"
-				},
-				{
-					"name": "variable.language.self.pan",
-					"match": "\\b(SELF)\\b"
-				},
-				{
-					"include": "#number"
-				}
-			]
-		},
-		"number": {
-			"name": "constant.numeric.pan",
-			"patterns": [
-				{
-					"include": "#number-float"
-				},
-				{
-					"include": "#number-dec"
-				},
-				{
-					"include": "#number-hex"
-				},
-				{
-					"include": "#number-oct"
-				},
-				{
-					"include": "#number-bin"
-				},
-				{
-					"include": "#number-long"
-				},
-				{
-					"include": "#number-unit"
-				}
-			]
-		},
-		"number-unit": {
-			"name": "constant.numeric.units.pan",
-			"match": "\\b( mb|gb|tb|MB|GB|TB|MHz|GHz|KiB|MiB|GiB|TiB|PiB|EiB|ZiB|YiB )"
-		},
-		"number-float": {
-			"name": "constant.numeric.float.pan",
-			"match": "(?x)\n  (?<! \\w)(?:\n    [0-9]*\\.[0-9]+ ([eE][+-]?[0-9]+)?\n    | [0-9]+\\. ([eE][+-]?[0-9]+)?\n    | [0-9]+ ([eE][+-]?[0-9]+)\n  )([jJ])?\\b\n",
-			"captures": {
-				"4": {
-					"name": "storage.type.imaginary.number.pan"
-				}
-			}
-		},
-		"number-dec": {
-			"name": "constant.numeric.dec.pan",
-			"match": "(?x)\n  (?<![\\w\\.])(?:\n      [1-9][0-9]*\n      |\n      0+\n      |\n      [0-9]+ ([jJ])\n      |\n      0 ([0-9]+)(?![eE\\.])\n  )\\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.imaginary.number.pan"
-				},
-				"2": {
-					"name": "invalid.illegal.dec.pan"
-				},
-				"3": {
-					"name": "invalid.illegal.dec.pan"
-				}
-			}
-		},
-		"number-hex": {
-			"name": "constant.numeric.hex.pan",
-			"match": "(?x)\n  (?<![\\w\\.])\n    (0[xX]) [0-9a-fA-F]+\n  \\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.number.pan"
-				}
-			}
-		},
-		"number-oct": {
-			"name": "constant.numeric.oct.pan",
-			"match": "(?x)\n  (?<![\\w\\.])\n    (0[oO]) [0-7]+\n  \\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.number.pan"
-				}
-			}
-		},
-		"number-bin": {
-			"name": "constant.numeric.bin.pan",
-			"match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) [01]+\n  \\b\n",
-			"captures": {
-				"1": {
-					"name": "storage.type.number.pan"
-				}
-			}
-		},
-		"number-long": {
-			"name": "constant.numeric.bin.pan",
-			"comment": "this is to support pan2 syntax for long ints",
-			"match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
-			"captures": {
-				"2": {
-					"name": "storage.type.number.pan"
-				}
-			}
-		},
-		"statement-keyword": {
-			"patterns": [
-				{
-					"name": "storage.type.other.pan",
-					"match": "(?x)\n (\n   function | variable | include | prefix | bind | type \n  )\\b\n"
-				},
-				{
-					"name": "keyword.control.flow.pan",
-					"match": "(?x)\n  (\n    for | foreach |  else | if | except | while | with\n  )\\b\n"
-				},
-				{
-					"name": "storage.type.declaration.pan",
-					"match": "(?x)\n (\n    object | template | ordinary | unique | declaration | structure \n  )\\b\n"
-				}
-			]
-		},
-		"builtin-callables": {
-			"patterns": [
-				{
-					"include": "#builtin-functions"
-				}
-			]
-		},
-		"builtin-functions": {
-			"patterns": [
-				{
-					"name": "support.function.string.builtin.pan",
-					"match": "(?x)\n  (?<!\\.) \\b(\n    file_contents | file_exists | format | index | length | match | matches | replace | splice | split | substitute | substr | to_lowercase | to_uppercase )\\b\n"
-				},
-				{
-					"name": "support.function.ressources.builtin.pan",
-					"match": "(?x)\n  (?<!\\.) \\b(\n    append | create  | first | dict | nlist | key | length |list | nlist | npush | merge | next | prepend | push| splice )\\b\n"
-				},
-				{
-					"name": "support.function.type-checking.builtin.pan",
-					"match": "(?x)\n  (?<!\\.) \\b(\n    is_(?: boolean | defined | dict | double | length | list | long  | null | number | property  | resource | string )\n)\\b\n"
-				},
-				{
-					"name": "support.function.debugging.builtin.pan",
-					"match": "(?x)\n  (?<!\\.) \\b(\n    debug | error | traceback | deprecated )\\b\n"
-				},
-				{
-					"name": "support.function.encoding.builtin.pan",
-					"match": "(?x)\n  (?<!\\.) \\b(\n    base64_decode | base64_encode | digest | escape | unescape )\\b\n"
-				},
-				{
-					"name": "support.function.vonversion.builtin.pan",
-					"match": "(?x)\n  (?<!\\.) \\b(\n    to_boolean | to_double | to_long | to_string | ip4_to_long | long_to_ip4 )\\b\n"
-				},
-				{
-					"name": "support.function.miscellaneous.builtin.pan",
-					"match": "(?x)\n  (?<!\\.) \\b(\n    clone | delete | exists | path_exists | if-exists | return | value )\\b\n"
-				}
-			]
-		},
-		"eof": {
-			"name": "support.class.eof.pan",
-			"begin": "<<EOF;",
-			"beginCaptures": {
-				"0": {
-					"name": "support.class.eof.begin.pan"
-				}
-			},
-			"end": "^(EOF)\\n",
-			"endCaptures": {
-				"0": {
-					"name": "support.class.eof.end.pan"
-				}
-			}
-		},
-		"string": {
-			"patterns": [
-				{
-					"begin": "'",
-					"beginCaptures": {
-					"0": {
-							"name": "punctuation.definition.string.begin.pan"
-					}
-					},
-					"end": "'",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.pan"
-						}
-					},
-					"name": "string.quoted.raw.single.pan"
-				},
-				{
-					"begin": "(?x)\n  (\")",
-					"beginCaptures": {
-					"0": {
-							"name": "punctuation.definition.string.begin.pan"
-						}
-					},
-					"end": "\"",
-					"endCaptures": {
-						"0": {
-								"name": "punctuation.definition.string.end.pan"
-						}
-					},
-					"name": "string.quoted.raw.double.pan"
-				}
-			]
-		},
-		"resource": {
-			"patterns": [
-				{
-					"begin": "(?x)\n  ^  (')",
-					"beginCaptures": {
-					"0": {
-							"name": "markup.bold.resource.begin.pan"
-					}
-					},
-					"end": "'",
-					"endCaptures": {
-						"0": {
-							"name": "markup.bold.resource.end.pan"
-						}
-					},
-					"name": "markup.bold.resource.single.pan"
-				},
-				{
-					"begin": "(?x)\n  ^  (\")",
-					"beginCaptures": {
-					"0": {
-							"name": "markup.bold.resource.begin.pan"
-						}
-					},
-					"end": "\"",
-					"endCaptures": {
-						"0": {
-								"name": "markup.bold.resource.end.pan"
-						}
-					},
-					"name": "markup.bold.resource.double.pan"
-				}
-			]
-		}
-	}
+    "name": "Pan",
+    "scopeName": "source.pan",
+    "fileTypes": [
+        "pan",
+        "tpl"
+    ],
+    "patterns": [
+        {
+            "include": "#comment"
+        },
+        {
+            "include": "#annotation"
+        },
+        {
+            "include": "#builtin-callables"
+        },
+        {
+            "include": "#statement-keyword"
+        },
+        {
+            "include": "#resource"
+        },
+        {
+            "include": "#string"
+        },
+        {
+            "include": "#eof"
+        },
+        {
+            "include": "#assignment-operator"
+        },
+        {
+            "include": "#logical-operator"
+        },
+        {
+            "include": "#bitwise-operator"
+        },
+        {
+            "include": "#arithmetic-operator"
+        },
+        {
+            "include": "#comparison-operator"
+        },
+        {
+            "include": "#literal"
+        },
+        {
+            "include": "#semicolon"
+        }
+    ],
+    "repository": {
+        "semicolon": {
+            "patterns": [
+                {
+                    "name": "invalid.deprecated.semicolon.pan",
+                    "match": "\\;$"
+                }
+            ]
+        },
+        "comment": {
+            "begin": "(^[ \\t]+)?(?<!\\S)(?=#)(?!#\\{)",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.whitespace.comment.leading.shell"
+                }
+            },
+            "end": "(?!\\G)",
+            "patterns": [
+                {
+                    "begin": "^(#!)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.comment.line.shebang.shell"
+                        }
+                    },
+                    "end": "\\n",
+                    "name": "comment.line.shebang.shell"
+                },
+                {
+                    "begin": "#",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.shell"
+                        }
+                    },
+                    "end": "\\n",
+                    "name": "comment.line.number-sign.shell"
+                }
+            ]
+        },
+        "annotation": {
+            "name": "comment.block.documentation.end.pan",
+            "begin": "^(@)",
+            "beginCaptures": {
+                "0": {
+                    "name": "comment.block.documentation.begin.pan"
+                }
+            },
+            "end": "^(})\\n",
+            "endCaptures": {
+                "0": {
+                    "name": "comment.block.documentation.end.pan"
+                }
+            }
+        },
+        "assignment-operator": {
+            "name": "keyword.control.assignment.pan",
+            "match": "(?x)\n     ( = | \\?= )\n"
+        },
+        "logical-operator": {
+            "name": "keyword.operator.logical.pan",
+            "match": "(?x)\n     ( && | \\|\\| | ! )\n"
+        },
+        "bitwise-operator": {
+            "name": "keyword.operator.bitwise.pan",
+            "match": "(?x)\n     ( & | \\| | \\^ | ~ )\n"
+        },
+        "arithmetic-operator": {
+            "name": "keyword.operator.arithmetic.pan",
+            "match": "(?x)\n     (\\* | \\+ | - | % | / )\n"
+        },
+        "comparison-operator": {
+            "name": "keyword.operator.comparison.pan",
+            "match": "(?x)\n     (!= | == | >= | <= | < | >)\n"
+        },
+        "literal": {
+            "patterns": [
+                {
+                    "name": "constant.numeric.boolean.pan",
+                    "match": "\\b(true|false)\\b"
+                },
+                {
+                    "name": "support.type.undef.pan",
+                    "match": "\\b(undef|null)\\b"
+                },
+                {
+                    "name": "variable.language.self.pan",
+                    "match": "\\b(SELF)\\b"
+                },
+                {
+                    "include": "#number"
+                }
+            ]
+        },
+        "number": {
+            "name": "constant.numeric.pan",
+            "patterns": [
+                {
+                    "include": "#number-float"
+                },
+                {
+                    "include": "#number-dec"
+                },
+                {
+                    "include": "#number-hex"
+                },
+                {
+                    "include": "#number-oct"
+                },
+                {
+                    "include": "#number-bin"
+                },
+                {
+                    "include": "#number-long"
+                },
+                {
+                    "include": "#number-unit"
+                }
+            ]
+        },
+        "number-unit": {
+            "name": "constant.numeric.units.pan",
+            "match": "\\b( mb|gb|tb|MB|GB|TB|MHz|GHz|KiB|MiB|GiB|TiB|PiB|EiB|ZiB|YiB )"
+        },
+        "number-float": {
+            "name": "constant.numeric.float.pan",
+            "match": "(?x)\n  (?<! \\w)(?:\n    [0-9]*\\.[0-9]+ ([eE][+-]?[0-9]+)?\n    | [0-9]+\\. ([eE][+-]?[0-9]+)?\n    | [0-9]+ ([eE][+-]?[0-9]+)\n  )([jJ])?\\b\n",
+            "captures": {
+                "4": {
+                    "name": "storage.type.imaginary.number.pan"
+                }
+            }
+        },
+        "number-dec": {
+            "name": "constant.numeric.dec.pan",
+            "match": "(?x)\n  (?<![\\w\\.])(?:\n      [1-9][0-9]*\n      |\n      0+\n      |\n      [0-9]+ ([jJ])\n      |\n      0 ([0-9]+)(?![eE\\.])\n  )\\b\n",
+            "captures": {
+                "1": {
+                    "name": "storage.type.imaginary.number.pan"
+                },
+                "2": {
+                    "name": "invalid.illegal.dec.pan"
+                },
+                "3": {
+                    "name": "invalid.illegal.dec.pan"
+                }
+            }
+        },
+        "number-hex": {
+            "name": "constant.numeric.hex.pan",
+            "match": "(?x)\n  (?<![\\w\\.])\n    (0[xX]) [0-9a-fA-F]+\n  \\b\n",
+            "captures": {
+                "1": {
+                    "name": "storage.type.number.pan"
+                }
+            }
+        },
+        "number-oct": {
+            "name": "constant.numeric.oct.pan",
+            "match": "(?x)\n  (?<![\\w\\.])\n    (0[oO]) [0-7]+\n  \\b\n",
+            "captures": {
+                "1": {
+                    "name": "storage.type.number.pan"
+                }
+            }
+        },
+        "number-bin": {
+            "name": "constant.numeric.bin.pan",
+            "match": "(?x)\n  (?<![\\w\\.])\n    (0[bB]) [01]+\n  \\b\n",
+            "captures": {
+                "1": {
+                    "name": "storage.type.number.pan"
+                }
+            }
+        },
+        "number-long": {
+            "name": "constant.numeric.bin.pan",
+            "comment": "this is to support pan2 syntax for long ints",
+            "match": "(?x)\n  (?<![\\w\\.])\n    ([1-9][0-9]* | 0) ([lL])\n  \\b\n",
+            "captures": {
+                "2": {
+                    "name": "storage.type.number.pan"
+                }
+            }
+        },
+        "statement-keyword": {
+            "patterns": [
+                {
+                    "name": "storage.type.other.pan",
+                    "match": "(?x)\n (\n   function | variable | include | prefix | bind | type \n  )\\b\n"
+                },
+                {
+                    "name": "keyword.control.flow.pan",
+                    "match": "(?x)\n  (\n    for | foreach |  else | if | except | while | with\n  )\\b\n"
+                },
+                {
+                    "name": "storage.type.declaration.pan",
+                    "match": "(?x)\n (\n    object | template | ordinary | unique | declaration | structure \n  )\\b\n"
+                }
+            ]
+        },
+        "builtin-callables": {
+            "patterns": [
+                {
+                    "include": "#builtin-functions"
+                }
+            ]
+        },
+        "builtin-functions": {
+            "patterns": [
+                {
+                    "name": "support.function.string.builtin.pan",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    file_contents | file_exists | format | index | length | match | matches | replace | splice | split | substitute | substr | to_lowercase | to_uppercase )\\b\n"
+                },
+                {
+                    "name": "support.function.ressources.builtin.pan",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    append | create  | first | dict | nlist | key | length |list | nlist | npush | merge | next | prepend | push| splice )\\b\n"
+                },
+                {
+                    "name": "support.function.type-checking.builtin.pan",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    is_(?: boolean | defined | dict | double | length | list | long  | null | number | property  | resource | string )\n)\\b\n"
+                },
+                {
+                    "name": "support.function.debugging.builtin.pan",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    debug | error | traceback | deprecated )\\b\n"
+                },
+                {
+                    "name": "support.function.encoding.builtin.pan",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    base64_decode | base64_encode | digest | escape | unescape )\\b\n"
+                },
+                {
+                    "name": "support.function.vonversion.builtin.pan",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    to_boolean | to_double | to_long | to_string | ip4_to_long | long_to_ip4 )\\b\n"
+                },
+                {
+                    "name": "support.function.miscellaneous.builtin.pan",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    clone | delete | exists | path_exists | if-exists | return | value )\\b\n"
+                }
+            ]
+        },
+        "eof": {
+            "name": "support.class.eof.pan",
+            "begin": "<<EOF;",
+            "beginCaptures": {
+                "0": {
+                    "name": "support.class.eof.begin.pan"
+                }
+            },
+            "end": "^(EOF)\\n",
+            "endCaptures": {
+                "0": {
+                    "name": "support.class.eof.end.pan"
+                }
+            }
+        },
+        "string": {
+            "patterns": [
+                {
+                    "begin": "'",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.pan"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.pan"
+                        }
+                    },
+                    "name": "string.quoted.raw.single.pan"
+                },
+                {
+                    "begin": "(?x)\n  (\")",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.pan"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.pan"
+                        }
+                    },
+                    "name": "string.quoted.raw.double.pan"
+                }
+            ]
+        },
+        "resource": {
+            "patterns": [
+                {
+                    "begin": "(?x)\n  ^  (')",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "markup.bold.resource.begin.pan"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "markup.bold.resource.end.pan"
+                        }
+                    },
+                    "name": "markup.bold.resource.single.pan"
+                },
+                {
+                    "begin": "(?x)\n  ^  (\")",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "markup.bold.resource.begin.pan"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "markup.bold.resource.end.pan"
+                        }
+                    },
+                    "name": "markup.bold.resource.double.pan"
+                }
+            ]
+        }
+    }
 }
