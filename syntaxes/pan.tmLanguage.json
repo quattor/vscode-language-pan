@@ -91,13 +91,13 @@
         },
         "annotation": {
             "name": "comment.block.documentation.end.pan",
-            "begin": "^(@)",
+            "begin": "(@\\S*{)",
             "beginCaptures": {
                 "0": {
                     "name": "comment.block.documentation.begin.pan"
                 }
             },
-            "end": "^(})\\n",
+            "end": "(})",
             "endCaptures": {
                 "0": {
                     "name": "comment.block.documentation.end.pan"

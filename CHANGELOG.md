@@ -1,3 +1,6 @@
+## Version 0.5.0
+* Fix annotation blocks
+
 ## Version 0.4.1
 * Readme correction
 
@@ -17,4 +20,3 @@
 ## Version 0.1.0
 
 * Initial release
-
